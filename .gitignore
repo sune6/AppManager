@@ -1,0 +1,13 @@
+/**/build
+/**/.gradle
+/**/.idea
+/**/*.iml
+/**/.svn
+/**/gen
+/**/*.eml
+/**/bin
+/local.properties
+/.settings
+/gen
+/bin
+/res
