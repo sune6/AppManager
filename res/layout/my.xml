@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/list_bg"
+    android:orientation="vertical" >
+    
+    <TextView 
+        android:id="@+id/tv_app_total"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/bottom_bg"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:gravity="center"
+        />
+
+    <ListView
+        android:id="@+id/lv_my_apps"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000"
+        android:divider="@drawable/list_separator"
+        android:listSelector="@drawable/list_item_selector" />
+
+</LinearLayout>
