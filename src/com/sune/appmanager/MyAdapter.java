@@ -1,15 +1,14 @@
 package com.sune.appmanager;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.List;
 
 public class MyAdapter extends BaseAdapter {
 	protected Context context;
@@ -33,18 +32,29 @@ public class MyAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		RelativeLayout layout = (RelativeLayout) LayoutInflater.from(
-				context).inflate(R.layout.my_list_item, null);
+		ViewHolder holder = null;
+		if(convertView == null){
+			convertView = LayoutInflater.from(context).inflate(R.layout.my_list_item, null);
+			holder = new ViewHolder();
+			holder.icon = (ImageView) convertView.findViewById(R.id.iv_program_icon);
+			holder.appName = ((TextView) convertView.findViewById(R.id.tv_program_name));
+			holder.pkgName = ((TextView) convertView.findViewById(R.id.tv_pkg_name));
+			convertView.setTag(holder);
+		}else{
+			holder = (ViewHolder) convertView.getTag();
+		}
 		
-		ImageView icon = ((ImageView) layout.findViewById(R.id.iv_program_icon));
-		icon.setImageDrawable(list.get(position).icon);
+		AppInfo app = list.get(position);
+		holder.icon.setImageDrawable(app.icon);
+		holder.appName.setText(app.appName);
+		holder.pkgName.setText(app.packageName);
 		
-		TextView appName = ((TextView) layout.findViewById(R.id.tv_program_name));
-		appName.setText(list.get(position).appName);
-		
-		TextView packageName = ((TextView) layout.findViewById(R.id.tv_pkg_name));
-		packageName.setText(list.get(position).packageName);
-		
-		return layout;
+		return convertView;
+	}
+	
+	private static class ViewHolder {
+		ImageView icon;
+		TextView appName;
+		TextView pkgName;
 	}
 }
