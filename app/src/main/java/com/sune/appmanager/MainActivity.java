@@ -1,8 +1,5 @@
 package com.sune.appmanager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.pm.ApplicationInfo;
@@ -13,6 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends Activity implements AdapterView.OnItemClickListener {
 	private MyAdapter adapter;
@@ -28,9 +28,15 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 		total = (TextView) findViewById(R.id.tv_app_total);
 		
 		adapter = new MyAdapter(list, MainActivity.this);
-		listView.setAdapter(MainActivity.this.adapter);
+		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(MainActivity.this);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		
+		list.clear();
 		new MyAsyncTast().execute();
 	}
 
@@ -72,15 +78,16 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 		}
 
 		private void getInstallApps() {
-			List<PackageInfo> packages = getPackageManager().getInstalledPackages(8192);
+			List<PackageInfo> packages = getPackageManager().getInstalledPackages(0);
 			for (int i = 0; i < packages.size(); i++) {
-				PackageInfo packageInfo = packages.get(i);
+				PackageInfo pi = packages.get(i);
 				AppInfo app = new AppInfo();
-				app.appName = packageInfo.applicationInfo.loadLabel(getPackageManager()).toString();
-				app.packageName = packageInfo.packageName;
-				app.icon = packageInfo.applicationInfo.loadIcon(getPackageManager());
+				app.appName = pi.applicationInfo.loadLabel(getPackageManager()).toString();
+				app.packageName = pi.packageName;
+				app.icon = pi.applicationInfo.loadIcon(getPackageManager());
+				
 				// 如果属于非系统程序，则添加到列表显示
-				if ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+				if ((pi.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
 					publishProgress(new AppInfo[]{app});
 				}
 			}
