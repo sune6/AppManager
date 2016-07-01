@@ -8,6 +8,6 @@ public class AppInfo {
 
     public String appName;
 
-    public String packageName;
+    public String pkgName;
 
 }

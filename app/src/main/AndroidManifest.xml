@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sune.appmanager"
-    android:versionCode="3"
-    android:versionName="1.2" >
-
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="18" />
+    package="com.sune.appmanager">
 
     <application
         android:allowBackup="false"
         android:icon="@drawable/android"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <activity
-            android:name="com.sune.appmanager.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
     </application>
 
 </manifest>
