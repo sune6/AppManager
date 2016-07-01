@@ -6,9 +6,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +34,23 @@ public class MainActivity extends Activity {
         total = (TextView) findViewById(R.id.tv_app_total);
 
         adapter = new AppAdapter(this, list);
+        adapter.setOnRecyclerViewItemClickListener(new AppAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String pkg = list.get(position).pkgName;
+                AppUtil.showAppDetails(MainActivity.this, pkg);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "long click", Toast.LENGTH_SHORT).show();
+            }
+        });
         DividerItemDecoration decor = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL_LIST);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(decor);
+        recyclerView.addItemDecoration(decor);//分隔线暂时没效果
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
 
@@ -66,7 +82,8 @@ public class MainActivity extends Activity {
         protected void onProgressUpdate(AppInfo... apps) {
             list.add(apps[0]);
             total.setText("已安装 " + list.size() + " 个应用");
-            adapter.notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
+            adapter.notifyItemInserted(list.size());
         }
 
         private void getInstallApps() {
