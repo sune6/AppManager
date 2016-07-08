@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "long click", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "long click", Toast.LENGTH_SHORT).show();
             }
         });
         DividerItemDecoration decor = new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL_LIST);
